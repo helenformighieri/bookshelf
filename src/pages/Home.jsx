@@ -1,6 +1,4 @@
-// Home.jsx
 import { useState, useEffect } from 'react';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 import api from '../api/booksApi';
 import useBookStore from '../store/bookStore';
 import SearchBar from '../components/SearchBar';
@@ -10,6 +8,7 @@ import ShelfButton from '../components/ShelfButton';
 function Home() {
   const [results, setResults] = useState([]);
   const [notification, setNotification] = useState('');
+  const [notificationType, setNotificationType] = useState(''); 
   const addBook = useBookStore((state) => state.addBook);
 
   const searchBooks = async (query) => {
@@ -29,14 +28,16 @@ function Home() {
     if (!isDuplicate) {
       addBook(newBook);
       setNotification('Livro adicionado à estante!');
+      setNotificationType('success');
     } else {
       setNotification('Este livro já está na estante.');
+      setNotificationType('error'); 
     }
   };
 
   useEffect(() => {
     if (notification) {
-      const timer = setTimeout(() => setNotification(''), 3000);
+      const timer = setTimeout(() => setNotification(''), 2000);
       return () => clearTimeout(timer);
     }
   }, [notification]);
@@ -48,7 +49,11 @@ function Home() {
       <ShelfButton />
 
       {notification && (
-        <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mt-6 rounded shadow-md w-full max-w-md text-center">
+        <div
+          className={`p-4 mt-6 rounded shadow-md w-full max-w-md text-center 
+            ${notificationType === 'success' ? 'bg-green-100 border-l-4 border-green-500 text-green-700' : ''} 
+            ${notificationType === 'error' ? 'bg-red-100 border-l-4 border-red-500 text-red-700' : ''}`}
+        >
           {notification}
         </div>
       )}

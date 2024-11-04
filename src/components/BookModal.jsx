@@ -1,5 +1,4 @@
-// components/BookModal.jsx
-import React from 'react';
+import PropTypes from 'prop-types';
 
 function BookModal({ book, onClose }) {
   if (!book) return null;
@@ -24,5 +23,14 @@ function BookModal({ book, onClose }) {
     </div>
   );
 }
+
+BookModal.propTypes = {
+  book: PropTypes.shape({
+    thumbnail: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string,
+  }),
+  onClose: PropTypes.func.isRequired,
+};
 
 export default BookModal;
