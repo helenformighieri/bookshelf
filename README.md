@@ -35,6 +35,7 @@ Este é um projeto de uma aplicação de busca de livros e gerenciamento de esta
 
 ## Deploy
 Este projeto está hospedado no Vercel.
+Link: https://bookshelf-black.vercel.app/
 
 ## Licença
 Este projeto é distribuído sob a licença MIT.
